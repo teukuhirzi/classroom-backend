@@ -4,6 +4,8 @@ import os
 app = Flask(__name__)
 app.config['JSON_SORT_KEYS'] = False
 
+
+
 @app.route('/')
 def testConnection():
     return "connected"
@@ -39,6 +41,10 @@ def register():
 
 @app.route('/login', methods=["POST"])
 def login():
+    response = {}
+    response['message'] = ""
+    response['data'] = {}
+
     body = request.json
 
     # siapin file buat di read
@@ -48,11 +54,15 @@ def login():
     for user in userData:
         if body["username"] == user["username"]:
             if body["password"] == user["password"]:
-                return "Login succes, welcome {}".format(user["fullname"])
+                response["message"] = "Login succes, welcome {}".format(user["fullname"])
+                response["data"] = user
+                break
             else:
-                return "Login failed. Wrong password"
-    
-    return "Login failed. Username is not found"
+                response["message"] = "Login failed. Username or password is wrong"
+                break
+
+    response["message"] = "Login failed. Username or password is wrong"
+    return jsonify(response)
 
 @app.route('/users/<int:id>', methods=["GET"])
 def getUser(id):
