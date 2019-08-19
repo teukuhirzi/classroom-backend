@@ -42,7 +42,7 @@ def register():
 @app.route('/login', methods=["POST"])
 def login():
     response = {}
-    response['message'] = ""
+    response['message'] = "Login failed. Username or password is wrong"
     response['data'] = {}
 
     body = request.json
@@ -56,12 +56,12 @@ def login():
             if body["password"] == user["password"]:
                 response["message"] = "Login succes, welcome {}".format(user["fullname"])
                 response["data"] = user
-                break
-            else:
-                response["message"] = "Login failed. Username or password is wrong"
-                break
+            break
+            # else:
+            #     response["message"] = "Login failed. Username or password is wrong"
+            #     break
 
-    response["message"] = "Login failed. Username or password is wrong"
+    
     return jsonify(response)
 
 @app.route('/users/<int:id>', methods=["GET"])
