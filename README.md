@@ -2,7 +2,7 @@
 kelas virtual 
 
 This app is a virtual class where the lecturers and students can interact without phisycal presence.
-for now the app only has limited capabilities.
+For now the app only has limited capabilities.
 
 to run this app these are the requirements:
 asn1crypto==0.24.0
